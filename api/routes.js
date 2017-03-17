@@ -24,7 +24,7 @@ module.exports = function(app){
         
         console.log(querystring);
         
-        mongo.connect("mongodb://username:password@ds133340.mlab.com:33340/queries", function(err, db){
+        mongo.connect("mongodb://" + process.env.MONGODB_USER + ":" + process.env.MONGODB_PASSWORD + "@ds133340.mlab.com:33340/queries", function(err, db){
             if (err) throw err;
             var collection = db.collection("queries");
             collection.insert({
@@ -72,7 +72,7 @@ module.exports = function(app){
     
     app.get("/latest", function(req, res){
         var results;
-        mongo.connect("mongodb://mnemosdev:mnemosdevmongodb@ds133340.mlab.com:33340/queries", function(err, db){
+        mongo.connect("mongodb://" + process.env.MONGODB_USER + ":" + process.env.MONGODB_PASSWORD + "@ds133340.mlab.com:33340/queries", function(err, db){
             if (err) throw err;
             var collection = db.collection("queries");
             results = collection.find({}, null, {
